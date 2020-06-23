@@ -13,7 +13,7 @@ from models import unet
 from data import VOCDataset
 
 
-# python3 train.py --image-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/JPEGImages --label-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/SegmentationClass --train-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt --valid-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt
+# python3 train.py --batch-size=4 --image-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/JPEGImages --label-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/SegmentationClass --train-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt --valid-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--experiment', default='test', help='the path to store sampled images and models')
@@ -89,7 +89,7 @@ def main():
         args.image_root,
         args.label_root,
         args.valid_list,
-        args.batch_size,
+        1,
         512,
         args.num_class,
     )
