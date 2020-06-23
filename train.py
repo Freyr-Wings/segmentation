@@ -39,7 +39,7 @@ parser.add_argument('--wd', default=1e-4, type=float, help='weight decay (defaul
 
 parser.add_argument(
     '--checkpoint',
-    default='./checkpoint',
+    default='checkpoint',
     help='path to previous checkpoints, if not exist then we will automatically create one'
 )
 parser.add_argument('--tb-root', default='./tblogdir', help='path to tensorboard log directory')
@@ -55,7 +55,7 @@ def main():
     cmap = scipy.io.loadmat(args.colormap)['cmap']
     cmap = torch.from_numpy(cmap)
 
-    args.checkpoint += args.model_name + '_' + args.checkpoint
+    args.checkpoint = args.model_name + '_' + args.checkpoint
 
     global tb_writer
     tb_writer = SummaryWriter(args.tb_root)
@@ -152,6 +152,9 @@ def train(loader, model, optimizer, criterion, epoch):
             epoch, i, loss.item(), total_loss/(i+1)/args.batch_size, iou.get_mean_iou()
         ))
 
+        if i > 10:
+            break
+
 
 def validate(loader, model, criterion, epoch):
     print("----- VALIDATING - EPOCH", epoch, "-----")
@@ -185,6 +188,9 @@ def validate(loader, model, criterion, epoch):
         print('Epoch %d iteration %d: Loss %.5f Accumulated Loss %.5f, mIoU %.5f' % (
             epoch, i, loss.item(), total_loss / (i + 1), iou.get_mean_iou()
         ))
+
+        if i > 10:
+            break
 
     tb_writer.add_scalar('Loss/val', total_loss, epoch)
     tb_writer.add_scalar('Mean IoU/val', iou.get_mean_iou(), epoch)
