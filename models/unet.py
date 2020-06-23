@@ -251,15 +251,6 @@ class decoderSPP(nn.Module):
         return pred
 
 
-def define_model(choice):
-    if choice == 'unet':
-        return encoder(), decoder()
-    elif choice == 'spp':
-        return encoderSPP(), decoderSPP()
-    elif choice == 'dilation':
-        return encoderDilation(), decoderDilation()
-
-
 class imodel(nn.Module):
     def __init__(self, choice):
         super(imodel, self).__init__()
