@@ -12,12 +12,14 @@ from torch.optim import Adam, lr_scheduler
 from models import unet
 from data import VOCDataset
 
+
+# python3 train.py --colormap=./datas/colormap.mat --image-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/JPEGImages --label-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/SegmentationClass --train-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt --valid-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--experiment', default='test', help='the path to store sampled images and models')
 parser.add_argument('--model-root', default='./checkpoint.pth.tar', help='the path to store the testing results')
 
-parser.add_argument('--colormap', default='./colormap.mat', help='colormap for visualization')
+parser.add_argument('--colormap', default='./datas/colormap.mat', help='colormap for visualization')
 
 # done
 parser.add_argument('--device', default='cuda', choices=['cpu', 'cuda'], help='the device to use')
@@ -74,7 +76,7 @@ def main():
         load_model(params, args.checkpoint)
 
     train_loader = VOCDataset.get_training_loader(
-        args.img_root,
+        args.image_root,
         args.label_root,
         args.train_list,
         args.batch_size,
@@ -84,7 +86,7 @@ def main():
     )
 
     valid_loader = VOCDataset.get_testing_loader(
-        args.img_root,
+        args.image_root,
         args.label_root,
         args.valid_list,
         args.batch_size,
