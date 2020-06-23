@@ -31,7 +31,6 @@ class Normalize(object):
 
     def __call__(self, sample):
         image = sample['image']
-        print(image)
         image = transforms.Normalize(self.mean, self.std)(image)
 
         sample['image'] = image

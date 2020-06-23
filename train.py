@@ -13,7 +13,7 @@ from models import unet
 from data import VOCDataset
 
 
-# python3 train.py --colormap=./datas/colormap.mat --image-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/JPEGImages --label-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/SegmentationClass --train-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt --valid-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt
+# python3 train.py --image-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/JPEGImages --label-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/SegmentationClass --train-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt --valid-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--experiment', default='test', help='the path to store sampled images and models')
@@ -144,12 +144,12 @@ def train(loader, model, optimizer, criterion, epoch):
         output_np = predict.cpu().numpy().flatten()
 
         iou.add_batch(label_np, output_np)
-        total_loss += loss.data[0]
+        total_loss += loss.item()
 
-        tb_writer.add_scalar('Loss/train', loss.data[0], epoch * num_batch + i)
+        tb_writer.add_scalar('Loss/train', loss.item(), epoch * num_batch + i)
         tb_writer.add_scalar('Mean IoU/train', iou.get_mean_iou(), epoch * num_batch + i)
         print('Epoch %d iteration %d: Loss %.5f Accumulated Loss %.5f, mIoU %.5f'.format(
-            epoch, i, loss.data[0], total_loss/(i+1), iou.get_mean_iou()
+            epoch, i, loss.item(), total_loss/(i+1), iou.get_mean_iou()
         ))
 
 
@@ -173,7 +173,7 @@ def validate(loader, model, criterion, epoch):
         output_np = predict.cpu().numpy().flatten()
 
         iou.add_batch(label_np, output_np)
-        total_loss += loss.data[0]
+        total_loss += loss.item()
 
         if i == 0:
             predicts = predict.cpu().long()
