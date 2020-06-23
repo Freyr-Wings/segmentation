@@ -148,7 +148,7 @@ def train(loader, model, optimizer, criterion, epoch):
 
         tb_writer.add_scalar('Loss/train', loss.item(), epoch * num_batch + i)
         tb_writer.add_scalar('Mean IoU/train', iou.get_mean_iou(), epoch * num_batch + i)
-        print('Epoch %d iteration %d: Loss %.5f Accumulated Loss %.5f, mIoU %.5f'.format(
+        print('Epoch %d iteration %d: Loss %.5f Accumulated Loss %.5f, mIoU %.5f' % (
             epoch, i, loss.item(), total_loss/(i+1), iou.get_mean_iou()
         ))
 
@@ -180,11 +180,11 @@ def validate(loader, model, criterion, epoch):
             for t in range(image.size(0)):
                 predict = predicts[t]
                 colored_img = cmap[predict[0]]
-                tb_writer.add_image('images/%d'.format(t), colored_img, epoch, dataformats='HWC')
+                tb_writer.add_image('images/%d' % (t,), colored_img, epoch, dataformats='HWC')
 
     tb_writer.add_scalar('Loss/val', total_loss, epoch)
     tb_writer.add_scalar('Mean IoU/val', iou.get_mean_iou(), epoch)
-    print('Epoch %d: Total Loss %.5f, mIoU %.5f'.format(epoch, total_loss, iou.get_mean_iou()))
+    print("Epoch %d: Total Loss %.5f, mIoU %.5f" % (epoch, total_loss, iou.get_mean_iou()))
 
 
 class Epoch(int):
