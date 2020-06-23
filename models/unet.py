@@ -264,6 +264,7 @@ class imodel(nn.Module):
         elif choice == 'dilation':
             self.encoder = encoderDilation()
             self.decoder = decoderDilation()
+        loadPretrainedWeight(self.encoder)
 
     def forward(self, x):
         x1, x2, x3, x4, x5 = self.encoder(x)
