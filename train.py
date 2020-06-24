@@ -97,8 +97,8 @@ def main():
     criterion = nn.CrossEntropyLoss()
 
     while params['epoch'] < args.epochs:
-        train(train_loader, params['model'], params['optimizer'], criterion, params['epoch'])
-        validate(valid_loader, params['model'], criterion, params['epoch'])
+        train(train_loader, params['model'], params['optimizer'], criterion, int(params['epoch']))
+        validate(valid_loader, params['model'], criterion, int(params['epoch']))
 
         params['epoch'].step()
         params['scheduler'].step()
@@ -191,9 +191,8 @@ def validate(loader, model, criterion, epoch):
     print("Epoch %d: Total Loss %.5f, mIoU %.5f" % (epoch, total_loss, iou.get_mean_iou()))
 
 
-class Epoch(int):
+class Epoch:
     def __init__(self):
-        super().__init__()
         self.epoch = 0
 
     def __int__(self):

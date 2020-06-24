@@ -86,17 +86,23 @@ output_np = output.numpy()
 # print(iou.get_mean_iou())
 
 
-import scipy.io
-colormap = scipy.io.loadmat("./datas/colormap.mat")['cmap']
-print(colormap)
-size = label_np.shape
-color_image = np.zeros((size[1], size[2], 3))
-print(colormap[label_np[0]])
-res = np.clip(colormap[label_np[0]] * 255, a_min=0, a_max=255)
-print(res)
+# import scipy.io
+# colormap = scipy.io.loadmat("./datas/colormap.mat")['cmap']
+# print(colormap)
+# size = label_np.shape
+# color_image = np.zeros((size[1], size[2], 3))
+# print(colormap[label_np[0]])
+# res = np.clip(colormap[label_np[0]] * 255, a_min=0, a_max=255)
+# print(res)
+#
+# from matplotlib import pyplot as plt
+#
+# plt.imshow(res)
+# plt.show()
 
-from matplotlib import pyplot as plt
+from train import Epoch
 
-plt.imshow(res)
-plt.show()
-
+e = Epoch()
+print(e)
+e.step()
+print(int(e)*2)
