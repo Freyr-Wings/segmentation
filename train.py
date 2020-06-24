@@ -96,7 +96,7 @@ def main():
 
     criterion = nn.CrossEntropyLoss()
 
-    while params['epoch'] < args.epochs:
+    while int(params['epoch']) < args.epochs:
         train(train_loader, params['model'], params['optimizer'], criterion, int(params['epoch']))
         validate(valid_loader, params['model'], criterion, int(params['epoch']))
 
