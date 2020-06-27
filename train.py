@@ -40,7 +40,7 @@ parser.add_argument('--wd', default=1e-4, type=float, help='weight decay (defaul
 parser.add_argument(
     '--checkpoint',
     default='checkpoint',
-    help='path to previous checkpoints, if not exist then we will automatically create one'
+    help='previous checkpoints names, if not exist then we will automatically create one'
 )
 parser.add_argument('--tb-root', default='./tblogdir', help='path to tensorboard log directory')
 
@@ -58,7 +58,7 @@ def main():
     args.checkpoint = args.model_name + '_' + args.checkpoint
 
     global tb_writer
-    tb_writer = SummaryWriter(args.tb_root)
+    tb_writer = SummaryWriter(os.path.join(args.tb_root, args.checkpoint))
 
     params = dict()
     params['model'] = unet.imodel(args.model_name).to(args.device)

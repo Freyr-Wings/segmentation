@@ -100,9 +100,12 @@ output_np = output.numpy()
 # plt.imshow(res)
 # plt.show()
 
-from train import Epoch
+# from train import Epoch
+#
+# e = Epoch()
+# print(e)
+# e.step()
+# print(int(e)*2)
+import os
+print(os.path.basename('../Users/ck'))
 
-e = Epoch()
-print(e)
-e.step()
-print(int(e)*2)

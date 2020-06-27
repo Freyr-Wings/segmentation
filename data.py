@@ -4,7 +4,7 @@ from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 from torchvision import transforms
 
-from transforms import RandomCrop, RandomHorizontalFlip, Resize, ToTensor, Normalize, GenOneHotLabel
+from transforms import RandomCrop, RandomHorizontalFlip, Resize, ToTensor, Normalize, ColorJitter
 from constants import imagenet_stats
 
 
@@ -54,6 +54,7 @@ class VOCDataset(Dataset):
                 Resize(img_height),
                 RandomCrop((img_height, img_width)),
                 ToTensor(),
+                ColorJitter(),
                 Normalize(
                     imagenet_stats['mean'],
                     imagenet_stats['std']

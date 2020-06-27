@@ -24,6 +24,14 @@ class Resize(object):
         return sample
 
 
+class ColorJitter(object):
+    def __call__(self, sample):
+        image = sample['image']
+        image = transforms.ColorJitter(0.3, 0.3, 1.2, 0.5)(image)
+
+        sample['image'] = image
+
+
 class Normalize(object):
     def __init__(self, mean, std):
         self.mean = mean
