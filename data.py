@@ -53,8 +53,8 @@ class VOCDataset(Dataset):
                 RandomHorizontalFlip(),
                 Resize(img_height),
                 RandomCrop((img_height, img_width)),
-                ToTensor(),
                 ColorJitter(),
+                ToTensor(),
                 Normalize(
                     imagenet_stats['mean'],
                     imagenet_stats['std']
