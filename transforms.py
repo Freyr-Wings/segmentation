@@ -28,8 +28,8 @@ class ColorJitter(object):
     def __call__(self, sample):
         image = sample['image']
         image = transforms.ColorJitter(0.3, 0.3, 1.2, 0.5)(image)
-
         sample['image'] = image
+        return sample
 
 
 class Normalize(object):
