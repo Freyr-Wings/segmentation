@@ -72,11 +72,11 @@ class VOCDataset(Dataset):
         return loader
 
     @staticmethod
-    def get_testing_loader(img_root, label_root, file_list, batch_size, image_size, num_class):
+    def get_testing_loader(img_root, label_root, file_list, batch_size, img_size, num_class):
         transformed_dataset = VOCDataset(
             img_root, label_root, file_list,
             transform=transforms.Compose([
-                Resize(image_size),
+                Resize(img_size),
                 ToTensor(),
                 Normalize(
                     imagenet_stats['mean'],

@@ -11,6 +11,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.optim import Adam, lr_scheduler
 from models import unet
 from data import VOCDataset
+from loss import CrossEntropyLoss2d
 
 
 # python3 train.py --batch-size=4 --image-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/JPEGImages --label-root=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/SegmentationClass --train-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt --valid-list=/content/gdrive/My\ Drive/datasets/PascalVOC/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt
@@ -94,7 +95,7 @@ def main():
         args.num_class,
     )
 
-    criterion = nn.CrossEntropyLoss()
+    criterion = CrossEntropyLoss2d()
 
     while int(params['epoch']) < args.epochs:
         train(train_loader, params['model'], params['optimizer'], criterion, int(params['epoch']))

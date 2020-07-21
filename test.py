@@ -109,3 +109,11 @@ output_np = output.numpy()
 import os
 print(os.path.basename('../Users/ck'))
 
+
+import fastai
+from fastai import *
+from fastai.vision import *
+
+learn = unet_learner(data,models.resnet34,metrics=custom_acc,loss_func=custom_loss)
+
+SegmentationItemList
